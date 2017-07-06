@@ -16,7 +16,7 @@
             ?>
                 <li role="presentation" <?php echo $menu[4]?>><a href="login.php">Login</a></li>                
             <?php } else { ?>
-                <li role="presentation" <?php echo $menu[4]?>><a href="incl/logout.php">Logout</a></li>
+                <li role="presentation" <?php echo $menu[4]?>><a href="logout.php">Logout</a></li>
             <?php } ?>
         </ul>
     </nav>

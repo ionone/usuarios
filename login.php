@@ -1,27 +1,29 @@
 <?php
     error_reporting(E_ALL);
     include ("incl/data.php");
-    include ("incl/session_gestion.php");   
     include ("incl/functions.php");
+    include ("incl/session_gestion.php");
     initiate();
     $TitlePag = "Login";
     $btnActive = 4;
-    //si el usuario ya está logado, le mandamos a su sitio
+    //si el usuario ya está logueado, le mandamos a su sitio
     if (isAuthenticated()) {
         header("location:index.php");
     } else { //usuario no autenticado
-        $loginFailedMessage = 'Credenciales incorrectas';
-        $authenticateYourSelf = 'Introduce tus credenciales';
+        $loginFailedMessage = '<h2 style="color:red">Credenciales incorrectas</h2>';
+        $authenticateYourSelf = '<h2>Introduce tus credenciales</h2>';
         $mesage = "";
         if (!$credentialsProvided = (isset($_POST['email']) && isset($_POST['password']))) {
             $mesage = $authenticateYourSelf;
         } else if ($credentialsProvided) {
             $rem = 0;
             if(isset($_POST['remember-me']) && $_POST['remember-me']==1) $rem = 1;
-            if (ranklogin($_POST['email'], $_POST['password'], $rem, TRUE)) {
-                // Grabar actividad en la base
+            // Hacemos login
+            if (login($_POST['email'], $_POST['password'], $rem, TRUE)) {
+                // Login Ok, grabamos actividad en la base
                 $db = new DataBase();
                 $resultset = $db->send("UPDATE users SET last_login = '" . date("Y-m-d H:i:s") . "' WHERE name = '" . $_SESSION['name'] . "'");
+                $db->close();
                 header("location:index.php");
             } else
                 $mesage = $loginFailedMessage;
@@ -36,7 +38,7 @@
         <div class="container">
             <?php include ("incl/navbar.php")?>
             <div class="jumbotron">
-                <h2>Sing In</h2>
+                <?php echo $mesage?>
                 <p class="lead">                    
                     <form method="post" action="login.php">
                     <label class="left">Correo Electrónico</label><br/>
