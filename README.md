@@ -17,3 +17,12 @@ CREATE TABLE `users` (
   `enabled` tinyint(1) NOT NULL,
   `last_login` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+Archivo de conexión a la base de datos
+
+ruta: incl/conn.php
+
+define('DB_SERVER','*******');
+define('DB_NAME','*********');
+define('DB_USER','*********');
+define('DB_PASS','*********');
