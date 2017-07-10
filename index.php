@@ -4,7 +4,7 @@
     include ("incl/functions.php");
     include ("incl/session_gestion.php");
     initiate();
-    $TitlePag = "Inicio";
+    $TitlePag = "title_Index";
     $btnActive = 1;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -16,7 +16,7 @@
             <?php include ("incl/navbar.php")?>
 
             <div class="jumbotron">
-                <h1>Jumbotron heading</h1>
+                <h1>Bienvenido </h1>
                 <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
                 <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
             </div>

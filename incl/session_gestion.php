@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_SESSION['lang'])){
+    $lang = $_SESSION['lang'];
+}else{
+    $lang = null;
+}
 
 function isAuthenticated() {
     if (isset($_SESSION['autentificado'])){
@@ -34,6 +39,7 @@ function login($username, $password, $remember, $password_hashed = TRUE) {
         $_SESSION['email'] = $resultset[0]["email"];
         $_SESSION['auth_key'] = $resultset[0]["auth_key"];
         $_SESSION['roles'] = $resultset[0]["roles"];
+        $_SESSION['lang'] = $resultset[0]["lang"];
         $_SESSION['autentificado'] = TRUE;
         $_SESSION['ultima_actividad_usuario'] = time();
         return TRUE;
