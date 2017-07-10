@@ -12,7 +12,7 @@ class DataBase
         else
             $this->connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die(mysqli_error());
         if (!$this->connection)
-            throw new Exception("0000"); //:Cannot connect to database [on class DataBase->construct database.php from PHPcore]		
+            throw new Exception("0000:No ha sido posible conectar con la Base de Datos [on class DataBase->construct database.php from PHPcore]:$sql");
         return true;
     }
 
@@ -20,7 +20,7 @@ class DataBase
     {
         $result = mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));
         if (is_null($result))
-            throw new Exception("0002:Cannot execute query, syntax error [on class DataBase->send database.php from PHPcore]:$sql");
+            throw new Exception("0002:Error de sintaxis al ejecutar consult SQL [on class DataBase->send database.php from PHPcore]:$sql");
         $return = array();
         if ($type == 'ARRAY')
             while (($return[] = mysqli_fetch_array($result))) {
@@ -42,7 +42,7 @@ class DataBase
         //echo $sql;
         $result = mysqli_query($this->connection, $sql);
         if (!$result)
-            throw new Exception("0003:Cannot execute SELECT query, syntax error [on class DataBase->select database.php from PHPcore]:$sql");
+            throw new Exception("0003:Error de sintaxis al ejecutar consulta SELECT SQL [on class DataBase->select database.php from PHPcore]:$sql");
         $return = array();
         if ($type == 'ARRAY')
             while (($return[] = mysqli_fetch_array($result))) {
@@ -73,7 +73,7 @@ class DataBase
             if (@mysqli_query($sql))
                 return true;
             else
-                throw new Exception("0004:Cannot execute INSERT query, syntax error [on class DataBase->insert database.php from PHPcore]:$sql");
+                throw new Exception("0004:Error de sintaxis al ejecutar consulta INSERT SQL[on class DataBase->insert database.php from PHPcore]:$sql");
         } else
             return false;
         //Example
@@ -97,7 +97,7 @@ class DataBase
         if (mysqli_query($this->connection, $sql))
             return true;
         else
-            throw new Exception("0005:Cannot execute UPDATE query, syntax error [on class DataBase->update database.php from PHPcore]:$sql");
+            throw new Exception("0005:Error de sintaxis al ejecutar consulta UPDATE SQL [on class DataBase->update database.php from PHPcore]:$sql");
         //Example
         // update('myTable', $anarray, "type = 'main'")
     }
@@ -109,7 +109,7 @@ class DataBase
         if (@mysqli_query($sql))
             return true;
         else
-            throw new Exception("0006:Cannot execute DELETE query, syntax error [on class DataBase->delete database.php from PHPcore]:$sql");
+            throw new Exception("0006:Error de sintaxis al ejecutar consulta DELETE SQL [on class DataBase->delete database.php from PHPcore]:$sql");
         //Example
         // delete('myTable',"type = 'main'")
     }

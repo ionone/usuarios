@@ -48,25 +48,22 @@ function initiate() {
     }
     // Hay cookie definida?    
     if (isset($_COOKIE['auth_key'])) {
-        $auth_key = $_COOKIE['auth_key'];
-        $db = new DataBase(DB_SERVER, DB_USER, DB_PASS, DB_NAME, 1);
+        $auth_key = $_COOKIE['auth_key'];        
         if ($logged_in === FALSE) {
-            // selecciona usuario de la base de datos cuya auth key coincida (las auth keys son únicas)
-            $where = "auth_key = '".$auth_key."'";
-            $auth_key_query = $db->select("users", $where); // or die("Error en: $auth_key " . mysql_error());            
-            if (!mysqli_num_rows($auth_key_query) > 0) {
+            // selecciona usuario de la base de datos cuya auth key coincida (las auth keys son únicas)            
+            $db = new DataBase(DB_SERVER, DB_USER, DB_PASS, DB_NAME, 1);            
+            $resultset = $db->select("users", "auth_key ='" . $auth_key . "' AND enabled = 1");
+            if (empty($resultset)) {        
                 // si la clave no pertenece a ningún usuario borra cookie
                 setcookie("auth_key", "", time() - 3600);
-            } else {
-                while ($u = mysqli_fetch_array($auth_key_query)) {
-                    // adelante con el login
-                    login($u['name'], $u['pass'], TRUE, FALSE);                    
-                }
+            } else {                
+                // adelante con el login
+                login($resultset[0]['name'], $resultset[0]['password'], TRUE, FALSE);
             }
-        } else {
-            setcookie("auth_key", "", time() - 3600);
-        }
-        $db->close();
+            $db->close();
+        }        
+    } else {
+        setcookie("auth_key", "", time() - 3600);
     }
 }
 
