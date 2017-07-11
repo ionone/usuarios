@@ -14,14 +14,16 @@
     <body>
         <div class="container">
             <?php include ("incl/navbar.php")?>
-
             <div class="jumbotron">
-                <h1>Bienvenido </h1>
-                <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+            <?php if(!isAuthenticated()){?>
+                <h1><?php echo __('tx_WelcomeTitle', $lang)?></h1>
+                <p class="lead"><?php echo __('tx_Welcome', $lang)?></p>
+                <p><a class="btn btn-lg btn-success" href="login.php" role="button"><?php echo __('bt_Login', $lang)?></a></p>            
+            <?php } else { ?>
+                <?php include ("incl/userpanel.php")?>
+            <?php }?>
             </div>
-
-            <div class="row marketing">
+            <!--<div class="row marketing">
                 <div class="col-lg-6">
                     <h4>Subheading</h4>
                     <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
@@ -43,7 +45,7 @@
                     <h4>Subheading</h4>
                     <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
                 </div>
-            </div>
+            </div>-->
             <?php include ("incl/footer.php")?>            
         </div> <!-- /container -->        
     </body>

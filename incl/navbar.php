@@ -26,5 +26,5 @@
 </div>
 <div class="header active">
     <?php if(isAuthenticated()) 
-        echo __('tx_Welcome', $lang)." <a href='profile.php'>".$_SESSION["name"]."</a>";?>
+        echo __('tx_WelcomeTitle', $lang)." <a href='profile.php'>".$_SESSION["name"]."</a>";?>
 </div>

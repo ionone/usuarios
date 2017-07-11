@@ -41,18 +41,30 @@
                 <?php echo $mesage?>
                 <p class="lead">                    
                     <form method="post" action="login.php">
-                    <label class="left">Correo Electrónico</label><br/>
+                    <label class="left"><?php echo __('lb_Email',$lang)?></label><br/>
                     <input class="right" type="text" id="email" name="email"></input>
                     <br/>
-                    <label class="">Contraseña</label><br/>
+                    <label class=""><?php echo __('lb_Pass',$lang)?></label><br/>
                     <input class="right" type="password" id="password" name="password"></input>
                     <br/>
-                    <label for="remember-me">Recordar mis datos</label>
+                    <label for="remember-me"><?php echo __('lb_Remember',$lang)?></label>
                     <input type="checkbox" value="1" id="remember-me" name="remember-me" />
                     <br/>
-                    <input type="submit" class="marketing btn btn-lg btn-success panel-group" value="Iniciar Sesión"></input>
+                    <input type="submit" class="marketing btn btn-lg btn-success panel-group" value="<?php echo __('bt_Login',$lang)?>"></input>
                 </form>
                 </p>
+            </div>
+            <div class="jumbotron">             
+                <p class="alert-link">
+                    <ul>
+                        <li style="text-align: left">
+                            <a href="restored.php"><?php echo __('tx_remember', $lang)?></a>
+                        </li>
+                        <li style="text-align: left">
+                            <a href="register.php"><?php echo __('tx_register', $lang)?></a>
+                        </li>
+                    </ul>
+                </p>                
             </div>
             <?php include ("incl/footer.php")?>            
         </div> <!-- /container -->        

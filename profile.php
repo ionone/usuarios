@@ -23,7 +23,7 @@
             }
             if (array_count_values($anarray)>0) {
                 $auth_query = $db->update("users", $anarray, "id = '" . $_SESSION['id'] . "'");                
-                $mesage = __('msb_Update', $lang);                        
+                $mesage = __('msb_Update', $lang);
             }
             $db->close();
             $name=$_POST['name'];
@@ -57,7 +57,7 @@
                 <div class="col-lg-4">
                     <h4 class="blockquote-reverse"><?php echo __('tx_Personal',$lang)?></h4>
                     <h4 class="blockquote-reverse"><a href="language.php"><?php echo __('tx_Language',$lang)?></a></h4>
-                    <h4 class="blockquote-reverse"><a href="#"><?php echo __('tx_Options',$lang)?></a></h4>
+                    <h4 class="blockquote-reverse"><a href="security.php"><?php echo __('tx_Options',$lang)?></a></h4>
                 </div>
 
                 <div class="col-lg-8">
@@ -76,7 +76,7 @@
                     <label class="left"><?php echo __('lb_Email',$lang)?></label><br/>
                     <input class="right" type="text" id="email" name="email" value="<?php echo $email?>"></input>
                     <br/>
-                    <input type="submit" class="btn btn-lg btn-success" style="margin-top: 15px" value="<?php echo __('lb_Button',$lang)?>"></input>
+                    <input type="submit" class="btn btn-lg btn-success" style="margin-top: 15px" value="<?php echo __('bt_Update',$lang)?>"></input>
                     </form>
                     </p>
                 </div>

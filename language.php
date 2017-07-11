@@ -18,7 +18,7 @@
                 $anarray["lang"]=$_POST["lang"];
             if (array_count_values($anarray)>0) {
                 $auth_query = $db->update("users", $anarray, "id = '" . $_SESSION['id'] . "'");                
-                $mesage = __('msb_Update', $lang);                        
+                $mesage = __('msb_Update', $_POST['lang']);                        
             }
             $db->close();
             $lang = $_POST['lang'];
@@ -43,7 +43,7 @@
                 <div class="col-lg-4">
                     <h4 class="blockquote-reverse"><a href="profile.php"><?php echo __('tx_Personal',$lang)?></a></h4>
                     <h4 class="blockquote-reverse"><?php echo __('tx_Language',$lang)?></h4>
-                    <h4 class="blockquote-reverse"><a href="#"><?php echo __('tx_Options',$lang)?></a></h4>
+                    <h4 class="blockquote-reverse"><a href="security.php"><?php echo __('tx_Options',$lang)?></a></h4>
                 </div>
 
                 <div class="col-lg-8">
@@ -51,11 +51,15 @@
                     <form method="post" action="language.php">
                     <input type="hidden" id="Enviado" name="Enviado" value="1"></input>                    
                     <select name="lang" id="lang" >
-                        <option value="es" icon="img/icons/es.png">Castellano</option>
-                        <option value="en" icon="img/icons/en.png">English</option>
+                        <?php 
+                        $selected["es"]="";
+                        $selected["en"]="";
+                        $selected[$_SESSION['lang']]=" selected ='selected'";?>
+                        <option value="es" icon="img/icons/es.png"<?php echo $selected["es"]?>>Castellano</option>
+                        <option value="en" icon="img/icons/en.png"<?php echo $selected["en"]?>>English</option>
                     </select>
                     <br/>
-                    <input type="submit" class="btn btn-lg btn-success" style="margin-top: 15px" value="<?php echo __('lb_Button',$lang)?>"></input>
+                    <input type="submit" class="btn btn-lg btn-success" style="margin-top: 15px" value="<?php echo __('bt_Update',$lang)?>"></input>
                     </form>
                     </p>
                 </div>
