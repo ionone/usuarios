@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13-jul-2017, 16:56:18
+    Author     : augc-david
+*/
+
+.calNameDayWeek {
+    width: 14%; 
+    padding: 2px;
+    border: 1px #269abc solid;
+    background-color: #269abc; 
+    color: white;
+    float: left;
+    height: 25px;
+    margin-bottom: auto;
+}
+
+.hd {    
+    background-color: #bce8f1;
+    color: #28a4c9;
+}
+
+.sp {    
+    background-color: #ce8483;
+    color: #00f;
+}
+
+.lp {    
+    background-color: #3e8f3e;
+    color: #843534;
+}
+
+.nd {    
+    background-color: #ff0;
+    color: #843534;
+}

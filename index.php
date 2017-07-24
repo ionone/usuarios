@@ -23,29 +23,23 @@
                 <?php include ("incl/userpanel.php")?>
             <?php }?>
             </div>
-            <!--<div class="row marketing">
+            <div class="row marketing">
                 <div class="col-lg-6">
-                    <h4>Subheading</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                    <h4><?php echo __('tit_cab1', $lang)?></h4>
+                    <p><?php echo __('tit_text1', $lang)?></p>
 
-                    <h4>Subheading</h4>
-                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+                    <h4><?php echo __('tit_cab2', $lang)?></h4>
+                    <p><?php echo __('tit_text2', $lang)?></p>
 
-                    <h4>Subheading</h4>
-                    <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                    <h4><?php echo __('tit_cab3', $lang)?></h4>
+                    <p><?php echo __('tit_text3', $lang)?></p>
                 </div>
 
                 <div class="col-lg-6">
-                    <h4>Subheading</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                    <h4>Subheading</h4>
-                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-                    <h4>Subheading</h4>
-                    <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                    <h4><?php echo __('tit_cab4', $lang)?></h4>
+                    <p><?php echo __('tit_text4', $lang)?></p>                   
                 </div>
-            </div>-->
+            </div>
             <?php include ("incl/footer.php")?>            
         </div> <!-- /container -->        
     </body>

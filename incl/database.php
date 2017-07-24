@@ -10,9 +10,10 @@ class DataBase
         if (DB_PASS == NULL)
             $this->connection = mysqli_connect(DB_SERVER, DB_USER, DB_NAME);
         else
-            $this->connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die(mysqli_error());
+            $this->connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME); // or die(mysqli_error($this->connection));
         if (!$this->connection)
-            throw new Exception("0000:No ha sido posible conectar con la Base de Datos [on class DataBase->construct database.php from PHPcore]:$sql");
+            throw new Exception("0000:No ha sido posible conectar con la Base de Datos [on class DataBase->construct database.php from PHPcore]:");
+        $acentos = mysqli_query($this->connection, "SET NAMES 'utf8'");
         return true;
     }
 
@@ -22,12 +23,12 @@ class DataBase
         if (is_null($result))
             throw new Exception("0002:Error de sintaxis al ejecutar consult SQL [on class DataBase->send database.php from PHPcore]:$sql");
         $return = array();
+        //var_dump($return);
+        //var_dump($sql);
         if ($type == 'ARRAY')
             while (($return[] = mysqli_fetch_array($result))) {
-                
             } else
-            while (($return[] = mysqli_fetch_assoc($result))) {
-                
+            while (($return[] = mysqli_fetch_assoc($result))) { 
             }
         if (count($return) > 1)
             unset($return[count($return) - 1]);
@@ -63,19 +64,30 @@ class DataBase
     public function insert($table, $data)
     { // well done
         $fields = $this->getFields($table);
-        if (count($fields) == count($data)) {
+        //if (count($fields) == count($data)) { // Comentado para que permita distinto número de campos
             $fields = implode(",", $fields);
             $sdata = array();
-            foreach ($data as $value)
+            //foreach ($data as $value) {
+                //$sdata[] = $this->secure($value); //Checking SQL injection                
+            //}
+            $fields = array();
+            foreach ($data as $key=>$value){
                 $sdata[] = $this->secure($value); //Checking SQL injection
-            $sdata = implode(",", $sdata);
-            $sql = "INSERT INTO '" . $table . "' (" . $fields . ") VALUES (" . $sdata . ")";
-            if (@mysqli_query($sql))
+                $fields[] = $key;
+            }
+            $fields = implode(", ", $fields);
+            $sdata = implode(", ", $sdata);
+            $sql = "INSERT INTO " . $table . " (" . $fields . ") VALUES (" . $sdata . ")";
+            if (mysqli_query($this->connection, $sql)){
+                //echo $sql."<br/>";
                 return true;
-            else
+            }
+            else {
                 throw new Exception("0004:Error de sintaxis al ejecutar consulta INSERT SQL[on class DataBase->insert database.php from PHPcore]:$sql");
-        } else
-            return false;
+                return false;
+            }
+        //} else
+            //return false;
         //Example
         // insert('myTable', $anarray)
     }
@@ -106,7 +118,7 @@ class DataBase
     {
         $sql = "DELETE FROM " . $table . " WHERE " . $where;
         //echo $sql;
-        if (@mysqli_query($sql))
+        if (mysqli_query($this->connection, $sql))
             return true;
         else
             throw new Exception("0006:Error de sintaxis al ejecutar consulta DELETE SQL [on class DataBase->delete database.php from PHPcore]:$sql");
@@ -117,9 +129,9 @@ class DataBase
     public function getFields($table, $type = NULL)
     { //well done
         $return = array();
-        $result = @mysqli_query($con, "SHOW COLUMNS FROM " . $table);
+        $result = @mysqli_query($this->connection, "SHOW COLUMNS FROM " . $table);
         if (!$result)
-            throw new Exception("0007:Cannot execute SHOW COLUMS query, syntax error [on class DataBase->getFields database.php from PHPcore]");
+            throw new Exception("0007:Cannot execute SHOW COLUMS query, syntax error [on class DataBase->getFields database.php from PHPcore]: SHOW COLUMNS FROM " . $table);
         if (@mysqli_num_rows($result) > 0) {
             while ($row = @mysqli_fetch_assoc($result)) {
                 if ($type != NULL)
@@ -179,5 +191,3 @@ class DataBase
     }
 
 }
-
-?>

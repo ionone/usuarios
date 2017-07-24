@@ -39,6 +39,7 @@ function login($username, $password, $remember, $password_hashed = TRUE) {
         $_SESSION['email'] = $resultset[0]["email"];
         $_SESSION['auth_key'] = $resultset[0]["auth_key"];
         $_SESSION['roles'] = $resultset[0]["roles"];
+        $_SESSION['idgroup'] = $resultset[0]["idgroup"];
         $_SESSION['lang'] = $resultset[0]["lang"];
         $_SESSION['autentificado'] = TRUE;
         $_SESSION['ultima_actividad_usuario'] = time();
@@ -59,7 +60,7 @@ function initiate() {
             // selecciona usuario de la base de datos cuya auth key coincida (las auth keys son únicas)            
             $db = new DataBase(DB_SERVER, DB_USER, DB_PASS, DB_NAME, 1);            
             $resultset = $db->select("users", "auth_key ='" . $auth_key . "' AND enabled = 1");
-            if (empty($resultset)) {        
+            if (empty($resultset)) {
                 // si la clave no pertenece a ningún usuario borra cookie
                 setcookie("auth_key", "", time() - 3600);
             } else {                

@@ -22,7 +22,10 @@
             if (login($_POST['email'], $_POST['password'], $rem, TRUE)) {
                 // Login Ok, grabamos actividad en la base
                 $db = new DataBase();
-                $resultset = $db->send("UPDATE users SET last_login = '" . date("Y-m-d H:i:s") . "' WHERE name = '" . $_SESSION['name'] . "'");
+                //$resultset = $db->send("UPDATE users SET last_login = '" . date("Y-m-d H:i:s") . "' WHERE name = '" . $_SESSION['name'] . "'");                
+                $anarray= array();
+                $anarray["last_login"] = date("Y-m-d H:i:s");
+                $resultset = $db->update("users", $anarray, "name = '" . $_SESSION['name'] . "'");
                 $db->close();
                 header("location:index.php");
             } else
