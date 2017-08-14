@@ -38,6 +38,7 @@ function login($username, $password, $remember, $password_hashed = TRUE) {
         $_SESSION['id'] = $resultset[0]["id"];
         $_SESSION['email'] = $resultset[0]["email"];
         $_SESSION['auth_key'] = $resultset[0]["auth_key"];
+        $_SESSION['token'] = $resultset[0]["token"];
         $_SESSION['roles'] = $resultset[0]["roles"];
         $_SESSION['idgroup'] = $resultset[0]["idgroup"];
         $_SESSION['lang'] = $resultset[0]["lang"];

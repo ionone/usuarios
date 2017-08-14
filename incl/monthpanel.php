@@ -101,7 +101,9 @@ $mes["12"]="diciembre";
             $extraedia = intval($extraedia); // captura el día de la fecha msqli
             
             $matrizmes[$extraedia][0] = $key["horario"];
-            $matrizmes[$extraedia][1] = $key["actionGrab"];        
+            $matrizmes[$extraedia][1] = $key["actionGrab"];
+            $matrizmes[$extraedia][2] = $key["dateAction"];
+            $matrizmes[$extraedia][3] = $key["dateregister"];
         }
     }
     $valor = 1;
@@ -111,6 +113,7 @@ $mes["12"]="diciembre";
     $ptsCON = $arrayGroup[0]["CON"];
     $ptsPAS = $arrayGroup[0]["PAS"];
     $ptsVAC = $arrayGroup[0]["VAC"];
+    //
     while($dia<=$numDayMonth){
         echo "<div class='row mark'>\n";        
         for($c=1;$c<=7;$c++) {            
@@ -118,13 +121,28 @@ $mes["12"]="diciembre";
                 if(!isset($matrizmes[$dia][0]))
                     echo "<div class='calNameDayWeek hd'>$dia</div>\n";
                 else {
+                    //
+                    $sql = "dateAction = '".$matrizmes[$dia][2]. "' AND dateregister ='".$matrizmes[$dia][3]."' AND horario = '".$matrizmes[$dia][0]. "'";
+                    $compis = $db->select("actions", $sql);
+                    $texto = "<b>".$matrizmes[$dia][2]."</b>";
+                    if(empty($compis)) {
+                        $texto = $usuario["name"]." CON"; // El usuario viaja solo
+                    }
+                    else {
+                        foreach ($compis as $key => $valor){                            
+                            $texto .= "<br/>";
+                            $texto .= usuario($compis[$key]["iduser"]). " ";
+                            $texto .= $compis[$key]["actionGrab"]."";
+                        }
+                    }
+                    //
                     $text1 = $matrizmes[$dia][0];                    
                     if($matrizmes[$dia][1] == "CON")
-                            $text2 = "<div class='calNameDayWeek sp' title='CONDUCTOR: + $ptsCON puntos'>$text1</div>\n";
+                            $text2 = "<div class='calNameDayWeek sp' title='CONDUCTOR: + $ptsCON puntos' alt='$texto' id = 'dia$dia' onclick = 'javascript:mostrar(\"dia$dia\")'>$text1</div>\n";
                     elseif($matrizmes[$dia][1] == "PAS")
-                            $text2 = "<div class='calNameDayWeek lp' title='PASAJERO: - $ptsPAS puntos'>$text1</div>\n";
+                            $text2 = "<div class='calNameDayWeek lp' title='PASAJERO: - $ptsPAS puntos' alt='$texto' id = 'dia$dia' onclick = 'javascript:mostrar(\"dia$dia\")'>$text1</div>\n";
                     elseif($matrizmes[$dia][1] == "NDP")
-                            $text2 = "<div class='calNameDayWeek nd' title='NO DISPONIBLE: + $ptsVAC puntos'>$dia</div>\n";
+                            $text2 = "<div class='calNameDayWeek nd' title='NO DISPONIBLE: + $ptsVAC puntos' alt='$texto'>$dia</div>\n";
                     echo $text2;                    
                 }
                 $dia++;
@@ -136,3 +154,7 @@ $mes["12"]="diciembre";
         echo "</div>\n";
     }
 ?>
+<div class="row">&nbsp;</div>
+<div class="row">
+<div class="col-lg-12 content2" id="information" style="display: none"></div>
+</div>

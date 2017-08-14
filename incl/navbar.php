@@ -6,11 +6,25 @@
     $menu[5] = "";
     $menu[$btnActive] = " class='active'";    
 ?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THKDRQV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script type="text/javascript">
+    google_ad_client = "ca-pub-2679800710610708";
+    google_ad_slot = "3896654624";
+    google_ad_width = 728;
+    google_ad_height = 90;
+</script>
+<!-- Publi1 -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
 <div class="header clearfix">
     <nav>
         <ul class="nav nav-pills pull-right">
             <li role="presentation" <?php echo $menu[1]?>><a href="index.php"><?php echo __('mn_Home', $lang)?></a></li>
-            <li role="presentation" <?php echo $menu[2]?>><a href="#"><?php echo __('mn_About', $lang)?></a></li>
+            <li role="presentation" <?php echo $menu[2]?>><a href="index.php#about"><?php echo __('mn_About', $lang)?></a></li>
             <li role="presentation" <?php echo $menu[3]?>><a href="#"><?php echo __('mn_Contact', $lang)?></a></li>
             <?php
             if (isAuthenticated() != TRUE) {

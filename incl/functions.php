@@ -44,6 +44,7 @@ function graphGroup($g){
         $tabla[$i]["id"] = $usuarios[$key]["id"];
         $tabla[$i]["name"] = $usuarios[$key]["name"];        
         $tabla[$i]["puntos"] = puntos($g, $tabla[$i]["id"]);
+        $tabla[$i]["picture"] = $usuarios[$key]["picture"];
         $i++;
     }
     $db->close();
@@ -56,6 +57,13 @@ function groupsParameters ($g){
     $grupo = $db->select("groups", "id =" .$g);
     $db->close();
     return $grupo;
+}
+
+function usuario($g){
+    $db = new DataBase(DB_SERVER, DB_USER, DB_PASS, DB_NAME, 1);
+    $grupo = $db->select("users", "id =" .$g);
+    $db->close();
+    return $grupo[0]["name"];
 }
 
 function puntos($g, $u){

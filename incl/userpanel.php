@@ -36,16 +36,25 @@ if(!isAuthenticated()) {
             }
             array_multisort($aux, SORT_DESC, $anarray);
             echo "<div class='row'>\n";
-            echo    "<div class='col-lg-6'>\n";
+            echo    "<div class='col-lg-2'>\n";
+            echo        "&nbsp;";
+            echo    "</div>\n";
+            echo    "<div class='col-lg-5'>\n";
             echo        "Nombre";
             echo    "</div>\n";
-            echo    "<div class='col-lg-6'>\n";
+            echo    "<div class='col-lg-5'>\n";
             echo        "Puntos";
             echo    "</div>\n";            
             echo "</div>\n";
             foreach ($anarray as $key => $value){
                 echo "<div class='row'>\n";
-                echo    "<div class='col-lg-6 mark'>\n";                
+                echo    "<div class='col-lg-2 mark'>\n";
+                if($anarray[$key]["picture"]!="")
+                    echo "<img src='../img/profiles/".$anarray[$key]["picture"]."' height='25' width='25' />";
+                else
+                    echo "<img src='../img/null.jpg' height='25' width='25' />";                
+                echo    "</div>\n";                
+                echo    "<div class='col-lg-5 mark' style='height:31px'>\n";            
                 echo        $i++."º ";
                 if($anarray[$key]["id"]==$_SESSION["id"]) echo "<span style='font-weight: bold'>";
                 echo        "<a href='user.php?userid=".$anarray[$key]["id"]."'>\n";
@@ -53,7 +62,7 @@ if(!isAuthenticated()) {
                 echo        "</a>\n";
                 if($anarray[$key]["id"]==$_SESSION["id"]) echo "</span>";
                 echo    "</div>\n";
-                echo    "<div class='col-lg-6 mark'>\n";
+                echo    "<div class='col-lg-5 mark' style='height:31px'>\n";
                 echo        $anarray[$key]["puntos"];
                 echo    "</div>\n";                
                 echo "</div>\n";

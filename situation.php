@@ -33,6 +33,9 @@ if (isset($_POST['Enviado']) && $_POST['Enviado'] == 1) {
                 } else
                     $message = __('msb_Confirmed', $lang);   
             }
+            $hoy = new DateTime (date("Y-m-d"));
+            $diff = s_datediff("m", $ini, $hoy);
+            if($diff>2) $message = __('msb_DateInvalid2', $lang);
         } else
             $message = __('msb_ErrorDateEnd', $lang);
     } else

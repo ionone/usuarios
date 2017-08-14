@@ -33,7 +33,8 @@
         $usuario["auth_key"] = '';
         $usuario["enabled"] = 1;
         $usuario["password"] = md5(date("Y-m-d H:i:s"));
-        $usuario["idgroup"] = $_POST['groupId']; 
+        $usuario["idgroup"] = $_POST['groupId'];
+        $usuario["token"] = md5($_POST['nick'].$_POST["email"]);
         //¿faltan datos?
         if(!isset($_POST['nick']) || $_POST['nick']=="") $message = "Falta Nick";
         if(!isset($_POST['firstname']) || $_POST['firstname']=="") $message .= " Falta Nombre";

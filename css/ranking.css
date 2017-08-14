@@ -38,3 +38,10 @@ and open the template in the editor.
     background-color: #ff0;
     color: #843534;
 }
+
+.content2 {
+    margin: 0px auto;
+    min-height: 100px;
+    box-shadow: 0 2px 5px #666666;
+    padding: 10px;
+}

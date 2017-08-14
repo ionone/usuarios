@@ -22,7 +22,7 @@
             <?php } else { ?>
                 <?php include ("incl/userpanel.php")?>
             <?php }?>
-            </div>
+            </div><a name="about"></a>
             <div class="row marketing">
                 <div class="col-lg-6">
                     <h4><?php echo __('tit_cab1', $lang)?></h4>
@@ -30,12 +30,13 @@
 
                     <h4><?php echo __('tit_cab2', $lang)?></h4>
                     <p><?php echo __('tit_text2', $lang)?></p>
-
-                    <h4><?php echo __('tit_cab3', $lang)?></h4>
-                    <p><?php echo __('tit_text3', $lang)?></p>
+                    
                 </div>
 
                 <div class="col-lg-6">
+                    <h4><?php echo __('tit_cab3', $lang)?></h4>
+                    <p><?php echo __('tit_text3', $lang)?></p>
+
                     <h4><?php echo __('tit_cab4', $lang)?></h4>
                     <p><?php echo __('tit_text4', $lang)?></p>                   
                 </div>

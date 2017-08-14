@@ -48,8 +48,9 @@ if (isset($_POST['Enviado']) && $_POST['Enviado'] == 1) {
     if($message==__('msb_Confirmed', $lang)){        
         foreach ($usuarios as $value){
             $sql = "SELECT u.firstname, u.lastname, u.name FROM users u INNER JOIN actions a ON u.id = a.iduser WHERE ";
-            $sql .= " a.iduser = ". $value . " AND a.dateAction = '" . $_POST['date'] ."';";
+            $sql .= " a.iduser = ". $value . " AND a.dateAction = '" . $_POST['date'] ."' AND a.actionGrab = 'NDP';";
             $resultset = $db->send($sql);
+            
             if (!empty($resultset)){
                 $message = __('msb_ErrorNDP', $lang). " => ".$resultset[0]["firstname"]. " ". $resultset[0]["lastname"];
             }
@@ -142,7 +143,15 @@ if (isset($_POST['Enviado']) && $_POST['Enviado'] == 2) {
                                                         foreach ($resultset as $key => $value) {
                                                             ?>
                                                             <label class="checkbox-inline">
-                                                                <input type="checkbox" value="<?php echo $value['id'] ?>" name="CheckPassenger[]"/> <span class="badge label-info"><?php echo $value['firstname']. " ". $value['lastname'] ?></span>
+                                                                <input type="checkbox" value="<?php echo $value['id'] ?>" name="CheckPassenger[]"/>
+                                                                <?php
+                                                                if($value["picture"]!="")
+                                                                    $picture = "img/profiles/".$value["picture"];
+                                                                else
+                                                                    $picture = "img/null.jpg";
+                                                                ?>
+                                                                <img src="<?php echo $picture?>" height="25" width="25"/>
+                                                                <span class="badge label-info"><?php echo $value['firstname']. " ". $value['lastname'] ?></span>
                                                             </label>
                                                         <?php
                                                         }
@@ -243,7 +252,13 @@ if (isset($_POST['Enviado']) && $_POST['Enviado'] == 2) {
                                         <div class="4u">                                    
                                             <div class="thumbnail">                                    
                                                 <p>Pasajero <?php echo ++$i; ?></p>
-                                                <a href="#"><img src="images/<?php echo $resultset[0]['picture'] ?>" height="150" /></a>
+                                                <?php
+                                                if($resultset[0]["picture"]!="")
+                                                    $picture = "img/profiles/".$resultset[0]["picture"];
+                                                else
+                                                    $picture = "img/null.jpg";
+                                                ?>
+                                                <img src="<?php echo $picture?>" height="100" width="100"/>
                                                 <h2><?php echo $resultset[0]['name'] ?></h2>
                                             </div>
                                         </div>                                                                

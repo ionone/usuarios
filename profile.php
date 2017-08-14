@@ -7,25 +7,24 @@
     $TitlePag = "title_Profile";
     $btnActive = 4;
     $mesage = "";
+    $db = new DataBase(DB_SERVER, DB_USER, DB_PASS, DB_NAME, 1);
     if (!isAuthenticated()) {
         // No debe estar aquí
         header("location:index.php");
     } else { //usuario autenticado
         if (isset($_POST['Enviado'])){
-            $anarray = array();
-            $db = new DataBase(DB_SERVER, DB_USER, DB_PASS, DB_NAME, 1);
+            $anarray = array();            
             foreach ($_POST as $var=>$value){
                 if ($var=="Enviado")
-                        continue;
+                    continue;
                 if($_POST[$var]!=$_SESSION[$var]){                    
                     $anarray[$var] = $value;
                 }                
-            }
-            if (array_count_values($anarray)>0) {
-                $auth_query = $db->update("users", $anarray, "id = '" . $_SESSION['id'] . "'");                
+            }                      
+            if (!empty($anarray)) {
+                $auth_query = $db->update("users", $anarray, "id = '" . $_SESSION['id'] . "'");
                 $mesage = __('msb_Update', $lang);
-            }
-            $db->close();
+            }            
             $name=$_POST['name'];
             $firstname=$_POST['firstname'];
             $lastname=$_POST['lastname'];
@@ -33,13 +32,18 @@
             $_SESSION['name'] = $name;
             $_SESSION['firstname'] = $firstname;
             $_SESSION['lastname'] = $lastname;                        
-            $_SESSION['email'] = $email;            
+            $_SESSION['email'] = $email;
+            $resultset = $db->select("users","id = ". $_SESSION['id']);
+            $picture=$resultset[0]['picture'];
         } else {
-            $name=$_SESSION['name'];
-            $firstname=$_SESSION['firstname'];
-            $lastname=$_SESSION['lastname'];
-            $email=$_SESSION['email'];
+            $resultset = $db->select("users","id = ". $_SESSION['id']);
+            $name=$resultset[0]['name'];
+            $firstname=$resultset[0]['firstname'];
+            $lastname=$resultset[0]['lastname'];
+            $email=$resultset[0]['email'];
+            $picture=$resultset[0]['picture'];
         }
+        $db->close();
     }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -61,7 +65,7 @@
                 </div>
 
                 <div class="col-lg-8">
-                    <p class="lead">                    
+                    <p class="lead">
                     <form method="post" action="profile.php">
                     <input type="hidden" id="Enviado" name="Enviado" value="1"></input>
                     <label class="left"><?php echo __('lb_Nick',$lang)?></label><br/>
@@ -75,6 +79,14 @@
                     <br/>
                     <label class="left"><?php echo __('lb_Email',$lang)?></label><br/>
                     <input class="right" type="text" id="email" name="email" value="<?php echo $email?>"></input>
+                    <br/>
+                    <?php 
+                    if($picture=="") $picture = "img/null.jpg";
+                    else $picture = "img/profiles/" .$picture;
+                    ?>
+                    <label class="left"><?php echo __('lb_Picture',$lang)?></label><br/>
+                    <img src="<?php echo $picture?>" height="100" width="100" onclick="location:temp.php"/>                   
+                    <a class="btn btn-default" href="temp.php"><?php echo __('bt_Picture', $lang)?></a>
                     <br/>
                     <input type="submit" class="btn btn-lg btn-success" style="margin-top: 15px" value="<?php echo __('bt_Update',$lang)?>"></input>
                     </form>
